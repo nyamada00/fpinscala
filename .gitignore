@@ -19,3 +19,5 @@ sbt
 sbt-launch.jar
 sbt.bat
 sbt.cmd
+.ensime
+src
