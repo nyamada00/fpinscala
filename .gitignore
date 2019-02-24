@@ -21,3 +21,4 @@ sbt.bat
 sbt.cmd
 .ensime
 src
+.metals
