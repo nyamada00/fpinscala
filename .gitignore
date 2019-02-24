@@ -22,3 +22,4 @@ sbt.cmd
 .ensime
 src
 .metals
+.scalafmt.conf
