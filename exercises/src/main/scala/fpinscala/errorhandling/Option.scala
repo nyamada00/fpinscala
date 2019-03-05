@@ -19,7 +19,7 @@ sealed trait Option[+A] {
     case Some(a) => f(a)
   }
 
-  def flatMap[B](f: A => Option[B]): Option[B] = 
+  def flatMap_1[B](f: A => Option[B]): Option[B] = 
     map(f).getOrElse(None)
 
   def orElse[B>:A](ob: => Option[B]): Option[B] = this match {
@@ -27,7 +27,10 @@ sealed trait Option[+A] {
     case _ => this
   }
 
-  def filter(f: A => Boolean): Option[A] = ???
+  def filter(f: A => Boolean): Option[A] = this match {
+    case None => None
+    case Some(a) => if(f(a)) this else None
+  }
 }
 case class Some[+A](get: A) extends Option[A]
 case object None extends Option[Nothing]
@@ -53,7 +56,8 @@ object Option {
   def mean(xs: Seq[Double]): Option[Double] =
     if (xs.isEmpty) None
     else Some(xs.sum / xs.length)
-  def variance(xs: Seq[Double]): Option[Double] = ???
+  def variance(xs: Seq[Double]): Option[Double] = 
+    mean(xs).flatMap(m=> mean( xs.map(x=>math.pow((x-m),2))))
 
   def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = ???
 
